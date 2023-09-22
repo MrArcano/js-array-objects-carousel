@@ -33,7 +33,7 @@ const images = [
 // -----------------------------------------------
 //  CARICO il div "carousel-img"
 // -----------------------------------------------
-images.forEach((element)=>{
+images.forEach((element) => {
   carouselImg.innerHTML += `
   <div class="hide img-car">
     <img src="${element.image}">
@@ -44,6 +44,7 @@ images.forEach((element)=>{
   </div>
   `;
   thumbnailsImg.innerHTML += `<img src="${element.image}" class="thumb-car">`;
+
 })
 // -----------------------------------------------
 
@@ -78,6 +79,17 @@ btnDown.addEventListener("click",function(){
   nextImage();
 });
 
+const arrayThumb = document.getElementsByClassName("thumb-car");
+
+for (const index in arrayThumb) { 
+    if(!isNaN(index)){
+      const element = arrayThumb[index];
+      element.addEventListener("click",function(){
+        goToImage(index);
+      })
+    }
+}
+
 // --------------------------------------------------------
 // ----------------------- FUNCTION -----------------------
 // --------------------------------------------------------
@@ -98,7 +110,7 @@ function prevImage(){
 
   // avvio un setIntervall per continuare a scorrere UP
   if (!prevIntervall){
-    prevIntervall = setInterval(prevImage,1500);
+    prevIntervall = setInterval(prevImage,1000);
   }
 };
 
@@ -118,13 +130,25 @@ function nextImage(){
   
   // avvio un setIntervall per continuare a scorrere DOWN
   if (!nextIntervall){
-    nextIntervall = setInterval(nextImage,1500);
+    nextIntervall = setInterval(nextImage,1000);
   }
 };
 
+// FUNCTION RESET TIMER
 function resetTimer(){
     clearInterval(prevIntervall);
     clearInterval(nextIntervall);
     prevIntervall = null;
     nextIntervall = null;
+}
+
+function goToImage(index){
+  resetTimer();
+  carouselArray[indexImg].classList.add("hide");
+  thumbArray[indexImg].classList.remove("active");
+
+  indexImg = index;
+  
+  carouselArray[indexImg].classList.remove("hide");
+  thumbArray[indexImg].classList.add("active");
 }
