@@ -60,20 +60,21 @@ thumbArray[indexImg].classList.add("active");
 
 let next = false;
 let prev = false;
+let prevIntervall;
+let nextIntervall;
+
 
 // al click del button up
 btnUp.addEventListener("click",function(){
   console.log("cliccato UP");
-  prev = true;
-  next = false;
+  resetTimer();
   prevImage();
 });
 
 // al click del button down
 btnDown.addEventListener("click",function(){
   console.log("cliccato DOWN");
-  prev = false;
-  next = true;
+  resetTimer();
   nextImage();
 });
 
@@ -83,43 +84,47 @@ btnDown.addEventListener("click",function(){
 
 // FUNCTION PREV IMAGE
 function prevImage(){
+  carouselArray[indexImg].classList.add("hide");
+  thumbArray[indexImg].classList.remove("active");
+  
+  if(indexImg == 0){
+    indexImg = carouselArray.length - 1;
+  }else{
+    indexImg--;
+  }
+  
+  carouselArray[indexImg].classList.remove("hide");
+  thumbArray[indexImg].classList.add("active");
 
-  if(prev === true){
-
-    carouselArray[indexImg].classList.add("hide");
-    thumbArray[indexImg].classList.remove("active");
-    
-    if(indexImg == 0){
-      indexImg = carouselArray.length - 1;
-    }else{
-      indexImg--;
-    }
-    
-    carouselArray[indexImg].classList.remove("hide");
-    thumbArray[indexImg].classList.add("active");
-
-    // avvio un timeOut per continuare a scorrere UP
-    setTimeout(prevImage,1500);
+  // avvio un setIntervall per continuare a scorrere UP
+  if (!prevIntervall){
+    prevIntervall = setInterval(prevImage,1500);
   }
 };
 
 // FUNCTION NEXT IMAGE
 function nextImage(){
-  if(next === true){
-
-    carouselArray[indexImg].classList.add("hide");
-    thumbArray[indexImg].classList.remove("active");
-    
-    if(indexImg == carouselArray.length - 1){
-      indexImg = 0;
-    }else{
-      indexImg++;
-    }
-    
-    carouselArray[indexImg].classList.remove("hide");
-    thumbArray[indexImg].classList.add("active");
-    
-    // avvio un timeOut per continuare a scorrere UP
-    setTimeout(nextImage,1500);
+  carouselArray[indexImg].classList.add("hide");
+  thumbArray[indexImg].classList.remove("active");
+  
+  if(indexImg == carouselArray.length - 1){
+    indexImg = 0;
+  }else{
+    indexImg++;
+  }
+  
+  carouselArray[indexImg].classList.remove("hide");
+  thumbArray[indexImg].classList.add("active");
+  
+  // avvio un setIntervall per continuare a scorrere DOWN
+  if (!nextIntervall){
+    nextIntervall = setInterval(nextImage,1500);
   }
 };
+
+function resetTimer(){
+    clearInterval(prevIntervall);
+    clearInterval(nextIntervall);
+    prevIntervall = null;
+    nextIntervall = null;
+}
