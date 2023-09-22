@@ -1,0 +1,123 @@
+/* ------------------------------------------------------ */
+/* RESET */
+/* ------------------------------------------------------ */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: darkseagreen;
+}
+
+/* ------------------------------------------------------ */
+/* CAROUSEL */
+/* ------------------------------------------------------ */
+.container-carousel{
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-csm{
+  height: 300px;
+  display: flex;
+}
+
+.carousel-img{
+  width: 700px;
+  height: 100%;
+}
+
+.carousel-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ------------------------------------------------------ */
+/* BUTTON */
+/* ------------------------------------------------------ */
+
+.btn-csm{
+  width: 24px;
+  aspect-ratio: 1/1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+  border: 1px solid black;
+  cursor: pointer;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.btn-up{
+  top: 8px;
+}
+
+.btn-down{
+  bottom: 8px;
+}
+
+/* ------------------------------------------------------ */
+/* THUMBNAILS */
+/* ------------------------------------------------------ */
+
+.carousel-thumbnails{
+  width: 150px;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-thumb{
+  height: 100%;
+  background-color: black; /* per la questione active */
+}
+
+.carousel-thumb img{
+  width: 100%;
+  height: 20%; /* questa height forse dovrebbe essere data da js */
+  object-fit: cover;
+  display: block;
+}
+
+.thumb-car{
+  opacity: 0.5;
+}
+
+
+/* ------------------------------------------------------ */
+/* UTILITY */
+/* ------------------------------------------------------ */
+.hide{
+  display: none;
+}
+
+.active{
+  opacity: 1;
+  border: 4px solid white;
+}
+
+/* .active::after{
+  position: absolute;
+  content: "";
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 2px solid white;
+
+} */
+
+
