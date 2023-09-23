@@ -61,8 +61,7 @@ carouselArray[indexImgShow].classList.remove("hide");
 thumbArray[indexImgShow].classList.add("active");
 
 // Variabili, che conterranno l'identificativo degli intervalli
-let prevIntervall;
-let nextIntervall;
+let timeIntervall;
 
 // Add event listener alle "thumb-car"
 for (const index in thumbArray) { 
@@ -75,15 +74,15 @@ for (const index in thumbArray) {
   }
 }
 
+// nextImage();
+
 // Click del button up
 btnUp.addEventListener("click",function(){
-  resetTimer();
   prevImage();
 });
 
 // Click del button down
 btnDown.addEventListener("click",function(){
-  resetTimer();
   nextImage();
 });
 
@@ -93,6 +92,7 @@ btnDown.addEventListener("click",function(){
 
 // Function PREV IMAGE
 function prevImage(){
+  resetTimer()
   indexImgHide = indexImgShow;
   if(indexImgShow == 0){
     indexImgShow = carouselArray.length - 1;
@@ -102,13 +102,12 @@ function prevImage(){
   toggleClassHideActive(indexImgHide,indexImgShow);
 
   // avvio un setIntervall per continuare a scorrere UP
-  if (!prevIntervall){
-    prevIntervall = setInterval(prevImage,1000);
-  }
+  timeIntervall = setInterval(prevImage,1500); 
 };
 
 // Function NEXT IMAGE
 function nextImage(){
+  resetTimer()
   indexImgHide = indexImgShow;
   if(indexImgShow == carouselArray.length - 1){
     indexImgShow = 0;
@@ -118,17 +117,12 @@ function nextImage(){
   toggleClassHideActive(indexImgHide,indexImgShow);
   
   // avvio un setIntervall per continuare a scorrere DOWN
-  if (!nextIntervall){
-    nextIntervall = setInterval(nextImage,1000);
-  }
+  timeIntervall = setInterval(nextImage,1500);
 };
 
 // Function RESET TIMER
 function resetTimer(){
-  clearInterval(prevIntervall);
-  clearInterval(nextIntervall);
-  prevIntervall = null;
-  nextIntervall = null;
+  clearInterval(timeIntervall);
 }
 
 // Function GoToImage
@@ -137,6 +131,9 @@ function goToImage(index){
   indexImgHide = indexImgShow;
   indexImgShow = index;
   toggleClassHideActive(indexImgHide,indexImgShow);
+
+  // setTimeOut di 3 sec
+  timeIntervall = setInterval(nextImage,3000);
 }
 
 // Function ToggleClassHideActive
