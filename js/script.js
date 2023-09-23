@@ -133,7 +133,7 @@ function goToImage(index){
   toggleClassHideActive(indexImgHide,indexImgShow);
 
   // setTimeOut di 3 sec
-  timeIntervall = setInterval(nextImage,3000);
+  timeIntervall = setInterval(nextImage,4000);
 }
 
 // Function ToggleClassHideActive
