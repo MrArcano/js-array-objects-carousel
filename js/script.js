@@ -49,64 +49,57 @@ images.forEach((element) => {
 // -----------------------------------------------
 
 // Indice dell'immagine visibile nel carousel
-let indexImg = 0;
+let indexImgHide = 0;
+let indexImgShow = 0;
 
 // Array di elementi html per "img-car" e "thumb-car"
 const carouselArray = document.getElementsByClassName("img-car")
 const thumbArray = document.getElementsByClassName("thumb-car")
 
 // Di default rimuovo al primo elemento la classe hide
-carouselArray[indexImg].classList.remove("hide");
-thumbArray[indexImg].classList.add("active");
+carouselArray[indexImgShow].classList.remove("hide");
+thumbArray[indexImgShow].classList.add("active");
 
-let next = false;
-let prev = false;
+// Variabili, che conterranno l'identificativo degli intervalli
 let prevIntervall;
 let nextIntervall;
 
+// Add event listener alle "thumb-car"
+for (const index in thumbArray) { 
+  // il [for in] mi restituisce un elemento "lenght" ?
+  if(!isNaN(index)){
+    const element = thumbArray[index];
+    element.addEventListener("click",function(){
+      goToImage(index);
+    })
+  }
+}
 
-// al click del button up
+// Click del button up
 btnUp.addEventListener("click",function(){
-  console.log("cliccato UP");
   resetTimer();
   prevImage();
 });
 
-// al click del button down
+// Click del button down
 btnDown.addEventListener("click",function(){
-  console.log("cliccato DOWN");
   resetTimer();
   nextImage();
 });
-
-const arrayThumb = document.getElementsByClassName("thumb-car");
-
-for (const index in arrayThumb) { 
-    if(!isNaN(index)){
-      const element = arrayThumb[index];
-      element.addEventListener("click",function(){
-        goToImage(index);
-      })
-    }
-}
 
 // --------------------------------------------------------
 // ----------------------- FUNCTION -----------------------
 // --------------------------------------------------------
 
-// FUNCTION PREV IMAGE
+// Function PREV IMAGE
 function prevImage(){
-  carouselArray[indexImg].classList.add("hide");
-  thumbArray[indexImg].classList.remove("active");
-  
-  if(indexImg == 0){
-    indexImg = carouselArray.length - 1;
+  indexImgHide = indexImgShow;
+  if(indexImgShow == 0){
+    indexImgShow = carouselArray.length - 1;
   }else{
-    indexImg--;
+    indexImgShow--;
   }
-  
-  carouselArray[indexImg].classList.remove("hide");
-  thumbArray[indexImg].classList.add("active");
+  toggleClassHideActive(indexImgHide,indexImgShow);
 
   // avvio un setIntervall per continuare a scorrere UP
   if (!prevIntervall){
@@ -114,19 +107,15 @@ function prevImage(){
   }
 };
 
-// FUNCTION NEXT IMAGE
+// Function NEXT IMAGE
 function nextImage(){
-  carouselArray[indexImg].classList.add("hide");
-  thumbArray[indexImg].classList.remove("active");
-  
-  if(indexImg == carouselArray.length - 1){
-    indexImg = 0;
+  indexImgHide = indexImgShow;
+  if(indexImgShow == carouselArray.length - 1){
+    indexImgShow = 0;
   }else{
-    indexImg++;
+    indexImgShow++;
   }
-  
-  carouselArray[indexImg].classList.remove("hide");
-  thumbArray[indexImg].classList.add("active");
+  toggleClassHideActive(indexImgHide,indexImgShow);
   
   // avvio un setIntervall per continuare a scorrere DOWN
   if (!nextIntervall){
@@ -134,21 +123,26 @@ function nextImage(){
   }
 };
 
-// FUNCTION RESET TIMER
+// Function RESET TIMER
 function resetTimer(){
-    clearInterval(prevIntervall);
-    clearInterval(nextIntervall);
-    prevIntervall = null;
-    nextIntervall = null;
+  clearInterval(prevIntervall);
+  clearInterval(nextIntervall);
+  prevIntervall = null;
+  nextIntervall = null;
 }
 
+// Function GoToImage
 function goToImage(index){
   resetTimer();
-  carouselArray[indexImg].classList.add("hide");
-  thumbArray[indexImg].classList.remove("active");
+  indexImgHide = indexImgShow;
+  indexImgShow = index;
+  toggleClassHideActive(indexImgHide,indexImgShow);
+}
 
-  indexImg = index;
-  
-  carouselArray[indexImg].classList.remove("hide");
-  thumbArray[indexImg].classList.add("active");
+// Function ToggleClassHideActive
+function toggleClassHideActive(iHide,iShow) {
+  carouselArray[iHide].classList.toggle("hide");
+  carouselArray[iShow].classList.toggle("hide");
+  thumbArray[iHide].classList.toggle("active");
+  thumbArray[iShow].classList.toggle("active");
 }
