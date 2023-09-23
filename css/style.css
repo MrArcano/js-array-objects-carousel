@@ -9,6 +9,7 @@
 
 body{
   background-color: darkseagreen;
+  font-family: 'Mooli', sans-serif;
 }
 
 /* ------------------------------------------------------ */
@@ -37,12 +38,15 @@ body{
 .carousel-text{
   position: absolute;
   bottom: 0;
+  left: 0;
   right: 0;
-
-  padding: 16px;
+  height: 80px;
+  padding: 8px 16px;
 
   color: white;
   text-align: right;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-top: 2px solid rgba(150, 150, 150, 0.5);
 }
 
 .carousel-img .img-car{
@@ -77,6 +81,11 @@ body{
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
+}
+
+.btn-csm:hover{
+  color: white;
+  background-color: black;
 }
 
 .btn-up{
